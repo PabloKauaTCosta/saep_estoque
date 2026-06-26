@@ -113,3 +113,8 @@ def excluir():
     
     item = tabela.item(item_selecionado)
     id_produto = item["values"][0]
+
+    excluir_produto(id_produto)
+    atualizar_tabela()
+
+    messagebox.showinfo("Sucesso", "Produto excluído com sucesso!")
