@@ -44,7 +44,7 @@ def excluir_produto(id_produto):
 
     sql = "DELETE FROM produtos WHERE id = %s"
     cursor.execute(sql, (id_produto,))
-
+    
     conexao.commit()
 
     cursor.close()
