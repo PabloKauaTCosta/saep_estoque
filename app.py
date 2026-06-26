@@ -118,3 +118,11 @@ def excluir():
     atualizar_tabela()
 
     messagebox.showinfo("Sucesso", "Produto excluído com sucesso!")
+
+    botao_excluir = tk.Button(
+        janela,
+        text="Excluir Produto",
+        command=excluir,
+        width=25
+    )
+    botao_excluir.pack(pady=5)
