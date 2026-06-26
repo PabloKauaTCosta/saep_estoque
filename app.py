@@ -110,3 +110,6 @@ def excluir():
     if not item_selecionado:
         messagebox.showwarning("Atenção", "Selecione um produto para excluir.")
         return
+    
+    item = tabela.item(item_selecionado)
+    id_produto = item["values"][0]
