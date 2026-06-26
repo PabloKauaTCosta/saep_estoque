@@ -1,10 +1,45 @@
+from banco import cadastrar_produto, listar_produtos, excluir_produto
 import tkinter as tk
 from tkinter import messagebox
-from banco import cadastrar_produto
+from tkinter import ttk
+from banco import cadastrar_produto, listar_produtos
 
 janela = tk.Tk()
 janela.title("SAEP Estoque PK")
 janela.geometry("500x400")
+
+tabela = ttk.Treeview(
+    janela,
+    columns=("id", "nome", "categoria", "quantidade", "preco"),
+    show="headings"
+    )
+
+tabela.heading("id", text="ID")
+tabela.heading("nome", text="Nome")
+tabela.heading("categoria", text="Categoria")
+tabela.heading("quantidade", text="Qtd")
+tabela.heading("preco", text="Preço")
+
+tabela.pack(pady=10)
+
+tabela.column("id", width=50)
+tabela.column("nome", width=160)
+tabela.column("categoria", width=140)
+tabela.column("quantidade", width=80)
+tabela.column("preco", width=100)
+
+tabela.pack(pady=10)
+
+def atualizar_tabela():
+    for item in tabela.get_children():
+        tabela.delete(item)
+
+    produtos = listar_produtos()
+
+    for produto in produtos:
+        tabela.insert("", tk.END, values=produto)
+
+atualizar_tabela()
 
 titulo = tk.Label(
     janela,
@@ -57,3 +92,21 @@ botao_salvar = tk.Button(
 botao_salvar.pack(pady=20)
     
 janela.mainloop()
+
+cadastrar_produto(nome, categoria, int(quantidade), float(preco))
+
+messagebox.showinfo("Sucesso", "Produto cadastrado com sucesso!")
+
+entrada_nome.delete(0, tk.END)
+entrada_categoria.delete(0, tk.END)
+entrada_quantidade.delete(0, tk.END)
+entrada_preco.delete(0, tk.END)
+
+atualizar_tabela()
+
+def excluir():
+    item_selecionado = tabela.selection()
+
+    if not item_selecionado:
+        messagebox.showwarning("Atenção", "Selecione um produto para excluir.")
+        return
